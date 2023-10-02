@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tela Inicial</title>
+</head>
+<body>
+    <h1>Projeto de Matemática Discreta: Criptografia</h1>
+    <label>Chave pública:</label>
+    <a href="{% url 'mdproject:save' %}">Salvar chave publica</a>
+
+    <label>Criptografar:</label>
+    <a href="{% url 'mdproject:crypt' %}">Cripto</a>
+
+    <label>Descriptografar:</label>
+    <a href="{% url 'mdproject:descrypt' %}">Descripto</a>
+</body>
+
+<script>
+    function generateRandom(inputId) {
+        fetch('/mdproject/generate_random/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(inputId).value = data.random_number;
+        })
+        .catch(error => console.error('Erro:', error));
+    }
+
+    function criptoNow(){
+
+    }
+    document.getElementById('encrypt-form').addEventListener('submit', function (e) {
+        e.preventDefault();  // Evita o envio padrão do formulário
+
+        const inputText = document.getElementById('input_text_encrypt').value;
+        const formData = new FormData();
+        formData.append('input_text', inputText);
+        console.log(formData)
+        fetch('/mdproject/save/', {
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            mode: 'same-origin',
+            body: formData,
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('decrypted_text').innerText = 'Texto criptografado: ' + data;
+        })
+        .catch(error => console.error('Erro:', error));
+    });
+</script>
+</html>

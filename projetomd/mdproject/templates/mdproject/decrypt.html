@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Resultado
+        </title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <div class="pag">
+            <form id="descrypt-form" method="POST" action="{% url 'mdproject:descrypt' %}">
+                {% csrf_token %}
+                <label>Digite o p:</label>
+                <input type="text" id="p" name="p">
+
+                <label>Digite o q:</label>
+                <input type="text" id="q" name="q">
+
+                <label>Digite o e:</label>
+                <input type="text" id="e" name="e">
+                {% if status %}
+                    <label>{{ status }}</label>
+                {% endif %}
+                <button type="submit">Descriptografar</button>
+            </form>
+            <a href="{% url 'mdproject:index' %}">Voltar ao menu inicial</a>
+        </div>
+    </body>
+</html>

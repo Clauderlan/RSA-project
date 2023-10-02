@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tela Inicial</title>
+</head>
+<body>
+    <h1>Projeto de Matemática Discreta: Criptografia</h1>
+    <label>Primo 1:</label>
+    <input type="text" id="primo1">
+    <button onclick="generateRandom('primo1')">Gerar Aleatório</button>
+
+    <label>Primo 2:</label>
+    <input type="text" id="primo2">
+    <button onclick="generateRandom('primo2')">Gerar Aleatório</button>
+
+    <label>E:</label>
+    <input type="text" id="e">
+    <button onclick="generateRandom('e')">Gerar Aleatório</button>
+
+    <div class="message">
+        <label>Texto a ser criptografado:</label>
+        <input type="text" id="input_text">
+    </div>
+    <button onclick="encryptText()">Criptografar</button>
+
+    <h3>Ou</h3>
+
+    <div class="message">
+        <label>Texto a ser descriptografado:</label>
+        <input type="text" id="decrypted_text">
+    </div>
+</body>
+<script>
+    function generateRandom(inputId) {
+        fetch('/generate_random/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(inputId).value = data.random_number;
+        })
+        .catch(error => console.error('Erro:', error));
+    }
+
+    function encryptText() {
+        const inputText = document.getElementById('input_text').value;
+        fetch('/encrypt_text/', {
+            method: 'POST',
+            body: JSON.stringify({ input_text: inputText }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('decrypted_text').innerText = 'Texto criptografado: ' + data;
+        })
+        .catch(error => console.error('Erro:', error));
+    }
+</script>
+</html>

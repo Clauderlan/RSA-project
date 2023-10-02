@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="pag">
+        <form method="POST" action="{% url 'mdproject:save' %}">
+            {% csrf_token %}
+            <label>Primo 1:</label>
+            <input type="text" id="primo1" name="primo1">
+
+            <label>Primo 2:</label>
+            <input type="text" id="primo2" name="primo2">
+
+            <label>E:</label>
+            <input type="text" id="e" name="e">
+            <button type="submit">Salvar</button>
+        </form>
+
+        {% if status %}
+            <label>{{ status }}</label>
+        {% endif %}
+        <a href="{% url 'mdproject:index' %}">Voltar ao menu inicial</a>
+    </div>
+</body>
+</html>

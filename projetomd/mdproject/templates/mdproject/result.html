@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Resultado
+        </title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <div class="pag">
+            <div class="number">
+                <label>Primo 1:</label>
+                <label>Primo 2:</label>
+                <label>E:</label>
+            </div>
+            <div class="show">
+                <label>Mensagem criptografada ou descriptografada:</label>
+                <label>{{ encrypted_text }}</label>
+            </div>
+            
+            <a href="{% url 'mdproject:index' %}">Voltar ao menu inicial</a>
+        </div>
+    </body>
+</html>
